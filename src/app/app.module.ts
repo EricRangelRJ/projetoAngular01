@@ -15,8 +15,10 @@ import { Routes, RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 
 //importando a biblioteca para desenvolvimento de formularios
-import { FormsModule, ReactiveFormsModule } 
-from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
+//importando a bilbioteca para paginação de dados
+import { NgxPaginationModule } from 'ngx-pagination';
 
 //mapear as rotas (URLs) para cada componente (página) do projeto
 const routes : Routes = [
@@ -41,8 +43,9 @@ const routes : Routes = [
     RouterModule.forRoot(routes), 
 //registrando as rotas mapeadas para o projeto
     HttpClientModule, //registrando a biblioteca para consumo de APIs
-  FormsModule, ReactiveFormsModule 
+    FormsModule, ReactiveFormsModule, 
 //registrando a biblioteca de formularios
+    NgxPaginationModule //registrando a biblioteca de paginação
   ],
   providers: [],
   bootstrap: [AppComponent]

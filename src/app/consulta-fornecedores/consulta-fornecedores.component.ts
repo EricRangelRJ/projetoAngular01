@@ -29,11 +29,14 @@ export class ConsultaFornecedoresComponent implements OnInit {
       cnpj: ''
   }
 
+  //atributo para armazenar a página atual
+  //do componente de paginação
+  page = 1;
+
   //@Autowired -> injeção de dependencia
   constructor(private fornecedoresService: FornecedoresService) { }
 
   //função executada quando o componente é carregado!
-
   ngOnInit(): void { //abrir o componente..
     //executando a consulta de fornecedores na API..
     this.fornecedoresService.get()
@@ -80,7 +83,6 @@ export class ConsultaFornecedoresComponent implements OnInit {
       )
   }
 
-
   //função para atualizar um fornecedor
   atualizarFornecedor(formEdicao : any) : void {
     //fazendo uma chamada para o serviço de edição da API
@@ -96,4 +98,15 @@ export class ConsultaFornecedoresComponent implements OnInit {
         }
       )
   }
+
+
+
+
+  //função para realizar a paginação
+  //avançar ou voltar na paginação
+  handlePageChange(event : number) {
+    this.page = event;
+  }
+
 }
+

@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from "@angular/common/http";
+import { HttpClient } from "@angular/common/http";
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -7,7 +8,7 @@ import { HttpClient, HttpParams } from "@angular/common/http";
 export class FornecedoresService {
 
   //atributo
-  endpoint = "http://localhost:8080/api/fornecedores";
+  endpoint = environment.apiUrl + "/fornecedores";
 
   //injeção de dependência (@Autowired)
   constructor(private httpClient: HttpClient) { }
@@ -15,29 +16,32 @@ export class FornecedoresService {
   //método para chamar o serviço POST (cadastro de fornecedor)
   post(fornecedor: any) {
 
-    const params = new HttpParams()
-      .set('nome', fornecedor.nome)
-      .set('cnpj', fornecedor.cnpj);
+    const formData = new FormData();
 
-    return this.httpClient.post
-(this.endpoint, params, { responseType: 'text' })
+    formData.append('nome', fornecedor.nome);
+    formData.append('cnpj', fornecedor.cnpj);
+
+    return this.httpClient.post(this.endpoint, formData, 
+{ responseType: 'text' })
   }
 
   //método para chamar o serviço PUT (edição de fornecedor)
   put(fornecedor: any) {
 
-    const params = new HttpParams()
-      .set('idFornecedor', fornecedor.idFornecedor)
-      .set('nome', fornecedor.nome);
+    const formData = new FormData();
 
-    return this.httpClient.put
-(this.endpoint, params, { responseType: 'text' })
+    formData.append('idFornecedor', fornecedor.idFornecedor);
+    formData.append('nome', fornecedor.nome);
+
+
+    return this.httpClient.put(this.endpoint, formData, 
+{ responseType: 'text' })
   }
 
   //método para chamar o serviço DELETE (exclusão de fornecedor)
   delete(idFornecedor: number) {
-    return this.httpClient.delete
-(this.endpoint + "/" + idFornecedor, { responseType: 'text' })
+    return this.httpClient.delete(this.endpoint + "/" + idFornecedor, 
+{ responseType: 'text' })
   }
 
   //método para chamar o serviço GET (consulta de fornecedores)
@@ -45,8 +49,8 @@ export class FornecedoresService {
     return this.httpClient.get(this.endpoint);
   }
 
-  //Método para chamar o serviço GET por ID
-  getById(idFornecedor : number){
+  //método para chamar o serviço GET por ID
+  getById(idFornecedor: number) {
     return this.httpClient.get(this.endpoint + "/" + idFornecedor)
   }
 }
